@@ -6,10 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shopping.common.domain.NetworkException
 import com.example.shopping.common.domain.NetworkUnavailableException
+import com.example.shopping.common.domain.NoMoreClientsException
+import com.example.shopping.common.domain.model.pagination.Pagination
 import com.example.shopping.common.presentation.Event
 import com.example.shopping.common.presentation.model.mappers.UiClientMapper
 import com.example.shopping.common.utils.DispatchersProvider
 import com.example.shopping.common.utils.createExceptionHandler
+import com.example.shopping.displayclients.domain.usecases.GetClients
+import com.example.shopping.displayclients.domain.usecases.RequestNextPageOfClients
 import com.example.shoppingapp.Logger
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
@@ -17,7 +21,9 @@ import kotlinx.coroutines.withContext
 
 class ClientsFragmentViewModel constructor(
     private val uiAnimalMapper: UiClientMapper,
-    private val dispatchersProvider: DispatchersProvider,
+    private val requestNextPageOfClients: RequestNextPageOfClients,
+    private val getClients: GetClients,
+    private val dispatcherProvider: DispatchersProvider,
     private val compositeDisposable: CompositeDisposable
 ): ViewModel() {
     val state: LiveData<ClientsViewState> get() = _state
@@ -45,7 +51,16 @@ class ClientsFragmentViewModel constructor(
         }
 
         viewModelScope.launch(exceptionHandler) {
+            val pagination = withContext(dispatcherProvider.io()) {
+                Logger.d("Requesting more clients")
+                requestNextPageOfClients(++currentPage)
+            }
+            onPaginationInfoObtained(pagination)
         }
+    }
+
+    private fun onPaginationInfoObtained(pagination: Pagination) {
+        currentPage = pagination.currentPage
     }
 
     private fun onFailure(failure: Throwable) {
@@ -54,6 +69,12 @@ class ClientsFragmentViewModel constructor(
             is NetworkUnavailableException -> {
                 _state.value = state.value!!.copy(
                     loading = false,
+                    failure = Event(failure)
+                )
+            }
+            is NoMoreClientsException -> {
+                _state.value = state.value!!.copy(
+                    noMoreClients = true,
                     failure = Event(failure)
                 )
             }
