@@ -13,7 +13,9 @@ import com.example.shopping.common.presentation.ClientsAdapter
 import com.example.shopping.common.presentation.Event
 import com.example.shopping.databinding.FragmentClientsBinding
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ClientsFragment : Fragment() {
     private val binding get() = _binding!!
 

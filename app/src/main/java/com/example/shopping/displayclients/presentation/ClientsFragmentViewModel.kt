@@ -16,13 +16,16 @@ import com.example.shopping.common.utils.createExceptionHandler
 import com.example.shopping.displayclients.domain.usecases.GetClients
 import com.example.shopping.displayclients.domain.usecases.RequestNextPageOfClients
 import com.example.shoppingapp.Logger
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class ClientsFragmentViewModel constructor(
+@HiltViewModel
+class ClientsFragmentViewModel @Inject constructor(
     private val uiClientMapper: UiClientMapper,
     private val requestNextPageOfClients: RequestNextPageOfClients,
     private val getClients: GetClients,
