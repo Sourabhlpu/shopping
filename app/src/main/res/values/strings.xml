@@ -3,4 +3,5 @@
     <string name="clients_screen_label">Clients</string>
     <string name="products_screen_label">Product</string>
     <string name="add_client">Add Client</string>
+    <string name="an_error_occurred">An error occurred</string>
 </resources>
