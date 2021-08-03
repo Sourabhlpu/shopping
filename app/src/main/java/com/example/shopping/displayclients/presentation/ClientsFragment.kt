@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.shopping.R
 import com.example.shopping.common.presentation.ClientsAdapter
 import com.example.shopping.common.presentation.Event
@@ -52,8 +53,28 @@ class ClientsFragment : Fragment() {
         binding.clientsRecyclerView.apply {
             adapter = clientsAdapter
             layoutManager = LinearLayoutManager(requireContext())
+            addOnScrollListener(createInfiniteScrollListener(layoutManager as LinearLayoutManager))
             setHasFixedSize(true)
         }
+    }
+
+    private fun createInfiniteScrollListener(
+        layoutManager: LinearLayoutManager
+    ) : RecyclerView.OnScrollListener{
+        return object : InfiniteScrollListener(
+            layoutManager,
+            ClientsFragmentViewModel.UI_PAGE_SIZE
+        ){
+            override fun loadMoreItems() { requestMoreClients() }
+
+            override fun isLoading(): Boolean = viewModel.isLoadingMoreClients
+
+            override fun isLastPage(): Boolean =  viewModel.isLastPage
+        }
+    }
+
+    private fun requestMoreClients() {
+        viewModel.onEvent(ClientsEvent.RequestMoreClients)
     }
 
     private fun observeViewStateUpdates(adapter: ClientsAdapter) {
@@ -68,7 +89,7 @@ class ClientsFragment : Fragment() {
     ) {
         binding.progressBar.isVisible = state.loading
         adapter.submitList(state.clients)
-        handleNoMoreAnimalsNearby(state.noMoreClients)
+        handleNoMoreClientsNearby(state.noMoreClients)
         handleFailures(state.failure)
     }
 
@@ -76,7 +97,7 @@ class ClientsFragment : Fragment() {
         return ClientsAdapter()
     }
 
-    private fun handleNoMoreAnimalsNearby(noMoreClients: Boolean) {
+    private fun handleNoMoreClientsNearby(noMoreClients: Boolean) {
 
     }
 

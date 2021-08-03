@@ -17,8 +17,7 @@ class RequestNextPageOfClients @Inject constructor(
         if(clients.isEmpty()){
             throw NoMoreClientsException("No clients")
         }
-
         clientRepository.storeClients(clients)
-        return pagination
+        return   pagination
     }
 }

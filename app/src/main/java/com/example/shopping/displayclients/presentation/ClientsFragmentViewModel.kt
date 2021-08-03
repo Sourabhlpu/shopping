@@ -32,7 +32,14 @@ class ClientsFragmentViewModel @Inject constructor(
     private val dispatcherProvider: DispatchersProvider,
     private val compositeDisposable: CompositeDisposable
 ) : ViewModel() {
+
+    companion object {
+        const val UI_PAGE_SIZE = Pagination.DEFAULT_PAGE_SIZE
+    }
+
     val state: LiveData<ClientsViewState> get() = _state
+    var isLoadingMoreClients: Boolean = false
+    var isLastPage = false
     private val _state = MutableLiveData<ClientsViewState>()
     private var currentPage = 0
 
@@ -44,6 +51,7 @@ class ClientsFragmentViewModel @Inject constructor(
     fun onEvent(event: ClientsEvent) {
         when (event) {
             is ClientsEvent.RequestInitialClientList -> loadClients()
+            is ClientsEvent.RequestMoreClients -> loadNextClientsPage()
         }
     }
 
@@ -79,6 +87,7 @@ class ClientsFragmentViewModel @Inject constructor(
     }
 
     private fun loadNextClientsPage() {
+        isLoadingMoreClients = true
         val errorMessage = "Failed to fetch nearby clients"
         val exceptionHandler = viewModelScope.createExceptionHandler(errorMessage) {
             onFailure(it)
@@ -90,11 +99,13 @@ class ClientsFragmentViewModel @Inject constructor(
                 requestNextPageOfClients(++currentPage)
             }
             onPaginationInfoObtained(pagination)
+            isLoadingMoreClients = false
         }
     }
 
     private fun onPaginationInfoObtained(pagination: Pagination) {
         currentPage = pagination.currentPage
+        isLastPage = !pagination.canLoadMore
     }
 
     private fun onFailure(failure: Throwable) {
