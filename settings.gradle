@@ -1,3 +1,4 @@
 
 rootProject.name = "shopping"
 include ':app'
+include ':logging'
