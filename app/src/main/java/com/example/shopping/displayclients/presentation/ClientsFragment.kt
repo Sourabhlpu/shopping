@@ -29,11 +29,16 @@ class ClientsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
+        requestInitialAnimalList()
     }
 
     private fun setupUI() {
         val adapter = createAdapter()
         setupRecyclerView(adapter)
+    }
+
+    private fun requestInitialAnimalList() {
+        viewModel.onEvent(ClientsEvent.RequestInitialClientList)
     }
 
     private fun setupRecyclerView(clientsAdapter: ClientsAdapter) {
