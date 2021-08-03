@@ -84,6 +84,13 @@ class ClientsFragmentViewModel @Inject constructor(
             loading = false,
             clients = updateList
         )
+        syncCurrentPage()
+    }
+
+    private fun syncCurrentPage() {
+        val clientsSize = state.value!!.clients.size
+        if(clientsSize > currentPage * UI_PAGE_SIZE)
+            currentPage = clientsSize/ UI_PAGE_SIZE
     }
 
     private fun loadNextClientsPage() {
@@ -104,7 +111,6 @@ class ClientsFragmentViewModel @Inject constructor(
     }
 
     private fun onPaginationInfoObtained(pagination: Pagination) {
-        currentPage = pagination.currentPage
         isLastPage = !pagination.canLoadMore
     }
 
