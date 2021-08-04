@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.shopping.R
-
+import com.example.shopping.common.presentation.model.UIToolbar
 
 
 const val ARG_CLIENT = "client"
@@ -16,7 +16,18 @@ const val ARG_CLIENT = "client"
 class ClientDetailsFragment : Fragment() {
     private var clientId: Long? = null
 
+    companion object {
+        val uiToolbar : UIToolbar
+            get() = UIToolbar(showSpinner = false, showTitle = true, showRightAction = false)
 
+        @JvmStatic
+        fun newInstance(clientId: Long) =
+            ClientDetailsFragment().apply {
+                arguments = Bundle().apply {
+                    putLong(ARG_CLIENT, clientId)
+                }
+            }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -29,15 +40,5 @@ class ClientDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_client_details, container, false)
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(clientId: Long) =
-            ClientDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putLong(ARG_CLIENT, clientId)
-                }
-            }
     }
 }

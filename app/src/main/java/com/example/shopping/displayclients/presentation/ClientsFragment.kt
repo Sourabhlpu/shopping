@@ -14,6 +14,7 @@ import com.example.shopping.R
 import com.example.shopping.clientdetails.presentation.ARG_CLIENT
 import com.example.shopping.common.presentation.ClientsAdapter
 import com.example.shopping.common.presentation.Event
+import com.example.shopping.common.presentation.model.UIToolbar
 import com.example.shopping.databinding.FragmentClientsBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +26,11 @@ class ClientsFragment : Fragment() {
     private var _binding: FragmentClientsBinding? = null
 
     private val viewModel: ClientsFragmentViewModel by viewModels()
+
+    companion object{
+        val uiToolbar : UIToolbar
+        get() = UIToolbar(showSpinner = true, showTitle = false, showRightAction = true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
