@@ -37,7 +37,13 @@ class ShoppingAppClientsRepository @Inject constructor(
         return cache.getClient(clientId)
             .distinctUntilChanged()
             .map { it.toDomain() }
+/*        return cache.getClients()
+            .distinctUntilChanged()
+            .map { clientList ->
+                clientList.find { it.client.clientId == clientId }?.toDomain()
+            }*/
     }
+
 
     override suspend fun requestMoreClients(pageToLoad: Int, numberOfItems: Int): PaginatedClients {
         try {
@@ -70,9 +76,9 @@ class ShoppingAppClientsRepository @Inject constructor(
     ): PaginatedTodos {
         try {
             val (apiPagination, apiTodos) = api.getClientTodos(
+                clientId,
                 pageToLoad,
-                numberOfItems,
-                clientId
+                numberOfItems
             )
 
             return PaginatedTodos(

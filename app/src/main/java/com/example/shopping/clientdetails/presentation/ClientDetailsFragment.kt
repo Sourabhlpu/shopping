@@ -21,11 +21,12 @@ import com.example.shopping.displayclients.presentation.ClientsEvent
 import com.example.shopping.displayclients.presentation.ClientsFragmentViewModel
 import com.example.shopping.displayclients.presentation.ClientsViewState
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
 
 const val ARG_CLIENT = "client"
 
-
+@AndroidEntryPoint
 class ClientDetailsFragment : Fragment() {
     private var clientId: Long? = null
 
@@ -56,6 +57,7 @@ class ClientDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.clientId = clientId ?: 0
         setupUI()
         requestInitialClientList()
     }
@@ -110,5 +112,10 @@ class ClientDetailsFragment : Fragment() {
         if (snackbarMessage.isNotEmpty()) {
             Snackbar.make(requireView(), snackbarMessage, Snackbar.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

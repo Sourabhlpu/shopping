@@ -9,6 +9,8 @@ import com.example.shopping.clientdetails.domain.usecases.GetTodoForClient
 import com.example.shopping.common.domain.NetworkException
 import com.example.shopping.common.domain.NetworkUnavailableException
 import com.example.shopping.common.domain.NoMoreClientsException
+import com.example.shopping.common.domain.NoMoreTodosException
+import com.example.shopping.common.domain.model.client.details.ClientWithTodos
 import com.example.shopping.common.domain.model.pagination.Pagination
 import com.example.shopping.common.presentation.Event
 import com.example.shopping.common.presentation.model.mappers.UIClientWithTodosMapper
@@ -19,13 +21,14 @@ import com.example.shoppingapp.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class ClientDetailsViewModel @Inject constructor(
-    uiMapper: UIClientWithTodosMapper,
+    private val uiMapper: UIClientWithTodosMapper,
     private val getClientWithTodos: GetClientWithTodos,
     private val getTodosForClient: GetTodoForClient,
     private val dispatcherProvider: DispatchersProvider,
@@ -45,7 +48,20 @@ class ClientDetailsViewModel @Inject constructor(
     private fun subscribeToClientWithTodosUpdates() {
         getClientWithTodos(clientId)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
+            .subscribe(
+                { onNewClientList(it) },
+                { onFailure(it) }
+            )
+            .addTo(compositeDisposable)
+    }
+
+    private fun onNewClientList(clientWithTodo: ClientWithTodos) {
+        Logger.d("Got the client")
+        val clients = uiMapper.mapToView(clientWithTodo)
+        _state.value = state.value!!.copy(
+            loading = false,
+            clientWithTodos = clients
+        )
     }
 
     fun onEvent(event: ClientWithDetailsEvent) {
@@ -56,7 +72,7 @@ class ClientDetailsViewModel @Inject constructor(
 
     private fun loadTodos() {
         if (state.value!!.clientWithTodos.isEmpty) {
-
+            loadNextClientsPage()
         }
     }
 
@@ -82,8 +98,9 @@ class ClientDetailsViewModel @Inject constructor(
                     failure = Event(failure)
                 )
             }
-            is NoMoreClientsException -> {
+            is NoMoreTodosException -> {
                 _state.value = state.value!!.copy(
+                    loading = false,
                     noClient = true,
                     failure = Event(failure)
                 )

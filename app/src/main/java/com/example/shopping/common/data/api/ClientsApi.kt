@@ -11,12 +11,13 @@ interface ClientsApi {
     suspend fun getClients(
         @Query(ApiParameters.PAGE) pageToLoad: Int,
         @Query(ApiParameters.LIMIT) pageSize: Int
-    ) : ApiPaginatedClients
+    ): ApiPaginatedClients
 
     @GET(ApiConstants.CLIENT_TODO_ENDPOINT)
     suspend fun getClientTodos(
+        @Path("id") id: Long,
         @Query(ApiParameters.PAGE) pageToLoad: Int,
-        @Query(ApiParameters.LIMIT) pageSize: Int,
-        @Path("id") id: Long
-    ) : ApiPaginatedTodos
+        @Query(ApiParameters.LIMIT) pageSize: Int
+
+    ): ApiPaginatedTodos
 }

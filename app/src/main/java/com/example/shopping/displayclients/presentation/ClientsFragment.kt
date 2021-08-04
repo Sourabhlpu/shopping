@@ -105,7 +105,9 @@ class ClientsFragment : Fragment() {
 
     private fun createAdapter(): ClientsAdapter {
         return ClientsAdapter {
-            findNavController().navigate(R.id.action_client_to_detail)
+            findNavController().navigate(R.id.action_client_to_detail, Bundle().apply {
+                putLong(ARG_CLIENT, it.id)
+            })
         }
     }
 
@@ -126,4 +128,8 @@ class ClientsFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
