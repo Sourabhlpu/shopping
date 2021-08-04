@@ -9,7 +9,9 @@ class UIClientWithTodosMapper @Inject constructor(private val todosMapper: UITod
         return UIClientWithTodos(
             id = input.id,
             name = input.name,
+            email = input.email,
             gender = input.gender.toString(),
+            status = input.status.toString(),
             todos = input.todos.map { todosMapper.mapToView(it) }
         )
     }

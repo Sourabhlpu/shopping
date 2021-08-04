@@ -19,14 +19,6 @@ class ClientDetailsFragment : Fragment() {
     companion object {
         val uiToolbar : UIToolbar
             get() = UIToolbar(showSpinner = false, showTitle = true, showRightAction = false)
-
-        @JvmStatic
-        fun newInstance(clientId: Long) =
-            ClientDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putLong(ARG_CLIENT, clientId)
-                }
-            }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

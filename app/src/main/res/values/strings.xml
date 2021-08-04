@@ -6,4 +6,9 @@
     <string name="filter">Filter</string>
     <string name="an_error_occurred">An error occurred</string>
     <string name="client_details">Client Details</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="gender">Gender</string>
+    <string name="status">Status</string>
+    <string name="todo_list">Todo list</string>
 </resources>
