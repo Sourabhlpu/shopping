@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home"
+    app:startDestination="@+id/clients">
+
+    <fragment
+        android:id="@+id/clients"
+        android:name="com.example.shopping.displayclients.presentation.ClientsFragment"
+        android:label="@string/clients_screen_label"
+        tools:layout="@layout/fragment_clients">
+        <action
+            android:id="@+id/action_client_to_detail"
+            app:destination="@id/clientDetails"/>
+    </fragment>
+    <fragment
+        android:id="@+id/clientDetails"
+        android:name="com.example.shopping.clientdetails.presentation.ClientDetailsFragment"
+        android:label="@string/client_details"
+        tools:layout="@layout/fragment_client_details"/>
+</navigation>
