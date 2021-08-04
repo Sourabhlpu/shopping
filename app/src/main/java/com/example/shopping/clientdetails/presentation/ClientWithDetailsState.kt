@@ -6,7 +6,7 @@ import com.example.shopping.common.presentation.model.clientdetails.UIClientWith
 
 data class ClientWithDetailsState(
     val loading: Boolean = true,
-    val clientWithTodos: UIClientWithTodos = UIClientWithTodos(-1, "", "", "", "",emptyList()),
+    val clientWithTodos: UIClientWithTodos = UIClientWithTodos(),
     val noClient: Boolean = false,
     val failure: Event<Throwable>? = null
 )
