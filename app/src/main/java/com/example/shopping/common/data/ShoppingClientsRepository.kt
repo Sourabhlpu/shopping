@@ -33,12 +33,10 @@ class ShoppingAppClientsRepository @Inject constructor(
             }
     }
 
-    override fun getClientWithTodo(clientId: Long): Flowable<List<ClientWithTodos>> {
-        return cache.getClients()
+    override fun getClientWithTodo(clientId: Long): Flowable<ClientWithTodos> {
+        return cache.getClient(clientId)
             .distinctUntilChanged()
-            .map { clientList ->
-                clientList.map { it.toDomain() }
-            }
+            .map { it.toDomain() }
     }
 
     override suspend fun requestMoreClients(pageToLoad: Int, numberOfItems: Int): PaginatedClients {

@@ -17,6 +17,7 @@ import com.example.shopping.common.utils.createExceptionHandler
 
 import com.example.shoppingapp.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -30,18 +31,21 @@ class ClientDetailsViewModel @Inject constructor(
     private val dispatcherProvider: DispatchersProvider,
     private val compositeDisposable: CompositeDisposable
 ) : ViewModel() {
-
+    var clientId: Long = -1
     val state: LiveData<ClientWithDetailsState> get() = _state
     private val _state = MutableLiveData<ClientWithDetailsState>()
     private var currentPage = 0
 
-    companion object {
-        const val UI_PAGE_SIZE = Pagination.DEFAULT_PAGE_SIZE
-    }
 
     init {
         _state.value = ClientWithDetailsState()
-        //subscribeToClientUpdates()
+        subscribeToClientWithTodosUpdates()
+    }
+
+    private fun subscribeToClientWithTodosUpdates() {
+        getClientWithTodos(clientId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe()
     }
 
     fun onEvent(event: ClientWithDetailsEvent) {
@@ -51,7 +55,7 @@ class ClientDetailsViewModel @Inject constructor(
     }
 
     private fun loadTodos() {
-        if(state.value!!.clientWithTodos.isEmpty){
+        if (state.value!!.clientWithTodos.isEmpty) {
 
         }
     }
@@ -64,7 +68,7 @@ class ClientDetailsViewModel @Inject constructor(
 
         viewModelScope.launch(exceptionHandler) {
             val pagination = withContext(dispatcherProvider.io()) {
-                getTodosForClient( ++currentPage, 72)
+                getTodosForClient(++currentPage, clientId)
             }
         }
     }

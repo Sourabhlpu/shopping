@@ -66,7 +66,7 @@ class ClientsFragmentViewModel @Inject constructor(
     }
 
     private fun loadClients() {
-        if (state.value!!.clients.isEmpty()) { // 2
+        if (state.value!!.clients.isEmpty()) {
             loadNextClientsPage()
         }
     }

@@ -13,5 +13,5 @@ interface ClientRepository {
     suspend fun storeClients(clients: List<Client>)
     suspend fun storeTodos(todos: List<Todo>, clientId: Long)
     suspend fun getTodosForClient(clientId: Long, pageToLoad: Int, pageSize: Int): PaginatedTodos
-    fun getClientWithTodo(clientId: Long): Flowable<List<ClientWithTodos>>
+    fun getClientWithTodo(clientId: Long): Flowable<ClientWithTodos>
 }
