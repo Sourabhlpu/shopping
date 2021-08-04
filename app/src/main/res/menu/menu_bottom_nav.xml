@@ -6,7 +6,7 @@
       android:title="@string/clients_screen_label"
       app:showAsAction="ifRoom" />
   <item
-      android:id="@+id/search"
+      android:id="@+id/products"
       android:title="@string/products_screen_label"
       app:showAsAction="ifRoom" />
 </menu>

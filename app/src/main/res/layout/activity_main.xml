@@ -12,9 +12,16 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:theme="@style/Theme.MaterialComponents.NoActionBar" />
+        android:theme="@style/Theme.MaterialComponents.NoActionBar" >
+        <Spinner
+            android:id="@+id/status_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <fragment
         android:id="@+id/nav_host_fragment"

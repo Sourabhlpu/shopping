@@ -2,6 +2,11 @@ package com.example.shopping.common
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.ArrayAdapter
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -19,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private val appBarConfiguration by lazy {
         AppBarConfiguration(topLevelDestinationIds = setOf(R.id.clients, R.id.products))
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
@@ -27,6 +33,34 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBar()
         setupBottomNav()
+        setDestinationChangeListener()
+    }
+
+    private fun setDestinationChangeListener() {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.clients -> {
+                    binding.toolbar.menu.findItem(R.id.add_client)?.isVisible = true
+                    binding.statusSpinner.isVisible = true
+                    supportActionBar?.setDisplayShowTitleEnabled(false)
+                }
+                R.id.products -> {
+                    binding.toolbar.menu.findItem(R.id.add_client)?.isVisible = false
+                    binding.statusSpinner.isVisible = false
+                    supportActionBar?.setDisplayShowTitleEnabled(true)
+                }
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_add, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupBottomNav() {
@@ -36,5 +70,16 @@ class MainActivity : AppCompatActivity() {
     private fun setupActionBar() {
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
+        setupFilter()
     }
+
+    private fun setupFilter(){
+        ArrayAdapter.createFromResource(this, R.array.status, android.R.layout.simple_spinner_item)
+            .also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.statusSpinner.adapter = adapter
+        }
+    }
+
+
 }

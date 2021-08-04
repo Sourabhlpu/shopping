@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
   <item
-      android:id="@+id/search"
+      android:id="@+id/add_client"
       android:icon="@drawable/ic_plus"
       android:title="@string/add_client"
       app:showAsAction="always|collapseActionView"
-      app:actionViewClass="androidx.appcompat.widget.SearchView" />
+      />
 </menu>

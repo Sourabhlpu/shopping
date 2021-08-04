@@ -4,11 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/drawable-v24/ic_plus.xml" value="0.13148148148148148" />
-        <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/layout/activity_main.xml" value="0.10144927536231885" />
-        <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/layout/fragment_clients.xml" value="0.10144927536231885" />
+        <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/layout/filter_widget.xml" value="0.1" />
+        <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/layout/filtered_search_widget.xml" value="0.10914855072463768" />
+        <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/layout/fragment_clients.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/layout/fragment_products.xml" value="0.10144927536231885" />
+        <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/layout/list_item.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/layout/recycler_view_client_item.xml" value="0.10144927536231885" />
-        <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/menu/menu_add.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/menu/menu_add.xml" value="0.1" />
+        <entry key="..\:/Users/Sourabh/AndroidStudioProjects/shopping/app/src/main/res/menu/menu_bottom_nav.xml" value="0.18802083333333333" />
       </map>
     </option>
   </component>
