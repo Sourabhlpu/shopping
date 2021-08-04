@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<navigation android:id="@+id/nav_graph"
+<navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/clients">
 
-    <fragment
-        android:id="@+id/clients"
-        android:name="com.example.shopping.displayclients.presentation.ClientsFragment"
-        android:label="@string/clients_screen_label"
-        tools:layout="@layout/fragment_clients">
-    </fragment>
-
-    <fragment
-        android:id="@+id/products"
-        android:name="com.example.shopping.products.presentation.ProductsFragment"
-        android:label="@string/products_screen_label"
-        tools:layout="@layout/fragment_products">
-    </fragment>
+    <include app:graph="@navigation/clients"/>
+    <include app:graph="@navigation/products"/>
 </navigation>

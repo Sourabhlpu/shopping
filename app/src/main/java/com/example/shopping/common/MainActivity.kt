@@ -7,7 +7,9 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -20,9 +22,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
+    private lateinit var navController: NavController
     private val appBarConfiguration by lazy {
-        AppBarConfiguration(topLevelDestinationIds = setOf(R.id.clients, R.id.products))
+        AppBarConfiguration(topLevelDestinationIds = setOf(R.id.clientsFragment, R.id.productsFragment))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +32,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val navHostFragment = supportFragmentManager.findFragmentById(
+            R.id.nav_host_fragment
+        ) as NavHostFragment
+        navController = navHostFragment.navController
         setupActionBar()
         setupBottomNav()
         setDestinationChangeListener()
@@ -39,12 +44,12 @@ class MainActivity : AppCompatActivity() {
     private fun setDestinationChangeListener() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.clients -> {
+                R.id.clientsFragment -> {
                     binding.toolbar.menu.findItem(R.id.add_client)?.isVisible = true
                     binding.statusSpinner.isVisible = true
                     supportActionBar?.setDisplayShowTitleEnabled(false)
                 }
-                R.id.products -> {
+                R.id.productsFragment -> {
                     binding.toolbar.menu.findItem(R.id.add_client)?.isVisible = false
                     binding.statusSpinner.isVisible = false
                     supportActionBar?.setDisplayShowTitleEnabled(true)

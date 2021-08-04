@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopping.R
+import com.example.shopping.clientdetails.presentation.ARG_CLIENT
 import com.example.shopping.common.presentation.ClientsAdapter
 import com.example.shopping.common.presentation.Event
 import com.example.shopping.databinding.FragmentClientsBinding
@@ -60,16 +62,18 @@ class ClientsFragment : Fragment() {
 
     private fun createInfiniteScrollListener(
         layoutManager: LinearLayoutManager
-    ) : RecyclerView.OnScrollListener{
+    ): RecyclerView.OnScrollListener {
         return object : InfiniteScrollListener(
             layoutManager,
             ClientsFragmentViewModel.UI_PAGE_SIZE
-        ){
-            override fun loadMoreItems() { requestMoreClients() }
+        ) {
+            override fun loadMoreItems() {
+                requestMoreClients()
+            }
 
             override fun isLoading(): Boolean = viewModel.isLoadingMoreClients
 
-            override fun isLastPage(): Boolean =  viewModel.isLastPage
+            override fun isLastPage(): Boolean = viewModel.isLastPage
         }
     }
 
@@ -94,7 +98,9 @@ class ClientsFragment : Fragment() {
     }
 
     private fun createAdapter(): ClientsAdapter {
-        return ClientsAdapter()
+        return ClientsAdapter {
+            findNavController().navigate(R.id.action_client_to_detail)
+        }
     }
 
     private fun handleNoMoreClientsNearby(noMoreClients: Boolean) {
@@ -106,8 +112,7 @@ class ClientsFragment : Fragment() {
         val fallbackMessage = getString(R.string.an_error_occurred)
         val snackbarMessage = if (unhandledFailure.message.isNullOrEmpty()) {
             fallbackMessage
-        }
-        else {
+        } else {
             unhandledFailure.message!!
         }
         if (snackbarMessage.isNotEmpty()) {

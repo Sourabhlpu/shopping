@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shopping.common.presentation.model.UIClient
 import com.example.shopping.databinding.RecyclerViewClientItemBinding
 
-class ClientsAdapter: ListAdapter<UIClient, ClientsAdapter.ClientsViewHolder>(ITEM_COMPARATOR) {
+class ClientsAdapter(private val listener: (UIClient) -> Unit): ListAdapter<UIClient, ClientsAdapter.ClientsViewHolder>(ITEM_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientsViewHolder {
         val binding = RecyclerViewClientItemBinding
@@ -19,7 +19,7 @@ class ClientsAdapter: ListAdapter<UIClient, ClientsAdapter.ClientsViewHolder>(IT
 
     override fun onBindViewHolder(holder: ClientsViewHolder, position: Int) {
         val item: UIClient = getItem(position)
-
+        holder.itemView.setOnClickListener { listener(item) }
         holder.bind(item)
     }
 
