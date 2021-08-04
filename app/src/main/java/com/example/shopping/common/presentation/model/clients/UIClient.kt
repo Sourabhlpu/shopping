@@ -1,4 +1,4 @@
-package com.example.shopping.common.presentation.model
+package com.example.shopping.common.presentation.model.clients
 
 data class UIClient(
     val id: Long,

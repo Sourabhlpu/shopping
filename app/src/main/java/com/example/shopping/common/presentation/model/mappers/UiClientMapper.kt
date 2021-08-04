@@ -1,7 +1,7 @@
 package com.example.shopping.common.presentation.model.mappers
 
 import com.example.shopping.common.domain.model.client.Client
-import com.example.shopping.common.presentation.model.UIClient
+import com.example.shopping.common.presentation.model.clients.UIClient
 import javax.inject.Inject
 
 class UiClientMapper @Inject constructor(): UiMapper<Client, UIClient> {

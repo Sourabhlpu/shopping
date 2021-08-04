@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shopping.common.presentation.model.UIClient
+import com.example.shopping.common.presentation.model.clients.UIClient
 import com.example.shopping.databinding.RecyclerViewClientItemBinding
 
 class ClientsAdapter(private val listener: (UIClient) -> Unit): ListAdapter<UIClient, ClientsAdapter.ClientsViewHolder>(ITEM_COMPARATOR) {

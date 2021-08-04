@@ -1,7 +1,7 @@
 package com.example.shopping.displayclients.presentation
 
 import com.example.shopping.common.presentation.Event
-import com.example.shopping.common.presentation.model.UIClient
+import com.example.shopping.common.presentation.model.clients.UIClient
 
 data class ClientsViewState(
     val loading: Boolean = true,
