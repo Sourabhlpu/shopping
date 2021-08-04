@@ -7,6 +7,7 @@ import com.example.shopping.common.data.cache.Cache
 import com.example.shopping.common.data.cache.models.cachedclient.CachedClient
 import com.example.shopping.common.domain.NetworkException
 import com.example.shopping.common.domain.model.client.Client
+import com.example.shopping.common.domain.model.client.details.ClientWithTodos
 import com.example.shopping.common.domain.model.pagination.PaginatedClients
 import com.example.shopping.common.domain.repositories.ClientRepository
 import io.reactivex.Flowable
@@ -19,7 +20,7 @@ class ShoppingAppClientsRepository @Inject constructor(
     private val apiClientMapper: ApiClientMapper,
     private val apiPaginationMapper: ApiPaginationMapper
 ) : ClientRepository {
-    override  fun getClients(): Flowable<List<Client>> {
+    override fun getClients(): Flowable<List<Client>> {
         return cache.getClients()
             .distinctUntilChanged()
             .map { clientList ->
@@ -47,4 +48,11 @@ class ShoppingAppClientsRepository @Inject constructor(
         cache.storeClients(clients.map { CachedClient.fromDomain(it) })
     }
 
+    override fun getClientWithTodo(clientId: Long): Flowable<List<ClientWithTodos>> {
+        return cache.getClients()
+            .distinctUntilChanged()
+            .map { clientList ->
+                clientList.map { it.toDomain() }
+            }
+    }
 }
