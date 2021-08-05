@@ -20,6 +20,7 @@ import com.example.shopping.databinding.FragmentClientsBinding
 import com.example.shopping.displayclients.presentation.ClientsEvent
 import com.example.shopping.displayclients.presentation.ClientsFragmentViewModel
 import com.example.shopping.displayclients.presentation.ClientsViewState
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -68,6 +69,8 @@ class ClientDetailsFragment : Fragment() {
         observeViewStateUpdates(adapter)
     }
 
+
+
     private fun requestInitialClientList() {
         viewModel.onEvent(ClientWithDetailsEvent.RequestInitialTodos)
     }
@@ -100,6 +103,8 @@ class ClientDetailsFragment : Fragment() {
             setHasFixedSize(true)
         }
     }
+
+
 
     private fun handleFailures(failure: Event<Throwable>?) {
         val unhandledFailure = failure?.getContentIfNotHandled() ?: return

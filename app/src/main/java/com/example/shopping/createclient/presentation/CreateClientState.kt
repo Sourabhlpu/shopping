@@ -10,8 +10,8 @@ data class CreateClientState(
     val isFormValid: Boolean = false,
     val isSubmitting: Boolean = false,
     val failure: Event<Throwable>? = null
-){
-    fun validateForm() : Boolean{
-        return name.isNotEmpty() && email.isNotEmpty() && gender.isNotEmpty() && status.isNotEmpty()
-    }
+) {
+    fun validateForm() =
+        name.isNotEmpty() && email.isNotEmpty() && gender.isNotEmpty() && status.isNotEmpty()
+
 }

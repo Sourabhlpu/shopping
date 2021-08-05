@@ -25,7 +25,23 @@ class CreateClientViewModel @Inject constructor(
             is CreateClientEvent.SaveClient -> saveClient()
             is CreateClientEvent.EmailInput -> validateEmail(event.email)
             is CreateClientEvent.NameInput -> validateName(event.name)
+            is CreateClientEvent.GenderSelected -> validateGender(event.gender)
+            is CreateClientEvent.StatusSelected -> validateStatus(event.status)
         }
+    }
+
+    private fun validateStatus(status: String) {
+        _state.value = state.value!!.copy(
+            status = status
+        )
+        validateForm()
+    }
+
+    private fun validateGender(gender: String) {
+        _state.value = state.value!!.copy(
+            gender = gender
+        )
+        validateForm()
     }
 
     private fun validateEmail(email: String) {
@@ -43,8 +59,7 @@ class CreateClientViewModel @Inject constructor(
     }
 
 
-
-    private fun validateForm(){
+    private fun validateForm() {
         _state.value = state.value!!.copy(
             isFormValid = state.value!!.validateForm()
         )

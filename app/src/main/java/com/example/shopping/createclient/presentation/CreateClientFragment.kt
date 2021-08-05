@@ -13,6 +13,7 @@ import com.example.shopping.R
 import com.example.shopping.common.presentation.Event
 import com.example.shopping.common.presentation.model.UIToolbar
 import com.example.shopping.databinding.FragmentCreateClientBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,14 +52,49 @@ class CreateClientFragment : Fragment() {
     }
 
     private fun setupUI() {
+        listenToGenderButton()
+        listenToStatusButton()
+        listenToSaveButton()
         observeViewStateUpdates()
+    }
+
+    private fun listenToSaveButton() {
+        binding.btnSave.setOnClickListener {
+            viewModel.onEvent(CreateClientEvent.SaveClient)
+        }
+    }
+
+    private fun listenToGenderButton() {
+        binding.selectGender.setOnClickListener {
+            val gender = resources.getStringArray(R.array.gender)
+            createOptionsPickerDialog(gender, true)
+        }
+    }
+
+    private fun listenToStatusButton() {
+        binding.selectStatus.setOnClickListener {
+            val status = resources.getStringArray(R.array.status)
+            createOptionsPickerDialog(status, false)
+        }
     }
 
     private fun setupInputFieldListeners() {
         val nameInput = binding.itemName.value
         val emailInput = binding.itemEmail.value
-        nameInput.addTextChangedListener { viewModel.onEvent(CreateClientEvent.NameInput(it?.toString().orEmpty()))}
-        emailInput.addTextChangedListener { viewModel.onEvent(CreateClientEvent.EmailInput(it?.toString().orEmpty()))}
+        nameInput.addTextChangedListener {
+            viewModel.onEvent(
+                CreateClientEvent.NameInput(
+                    it?.toString().orEmpty()
+                )
+            )
+        }
+        emailInput.addTextChangedListener {
+            viewModel.onEvent(
+                CreateClientEvent.EmailInput(
+                    it?.toString().orEmpty()
+                )
+            )
+        }
     }
 
     private fun observeViewStateUpdates() {
@@ -70,7 +106,23 @@ class CreateClientFragment : Fragment() {
     private fun updateScreenState(state: CreateClientState) {
         binding.btnSave.isEnabled = state.isFormValid
         binding.progressBar.isVisible = state.isSubmitting
+        binding.selectStatus.text = if(state.status.isEmpty()) getString(R.string.select) else state.status
+        binding.selectGender.text = if(state.gender.isEmpty()) getString(R.string.select) else state.gender
         handleFailures(state.failure)
+    }
+
+    private fun createOptionsPickerDialog(options: Array<String>, isGender: Boolean) {
+        val title =
+            if (isGender) resources.getString(R.string.select_gender) else resources.getString(R.string.select_status)
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(title)
+            .setItems(options) { _, which ->
+                val selection = options[which]
+                val event = if (isGender) CreateClientEvent.GenderSelected(selection)
+                else CreateClientEvent.StatusSelected(selection)
+                viewModel.onEvent(event)
+            }
+            .show()
     }
 
     private fun handleFailures(failure: Event<Throwable>?) {

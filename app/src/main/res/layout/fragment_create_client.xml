@@ -22,26 +22,53 @@
             app:layout_constraintTop_toBottomOf="@id/itemName"
             app:editable="@{true}"/>
 
-        <include
-            android:id="@+id/itemGender"
-            layout="@layout/client_detail_item_widget"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/gender_label"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:label="@{@string/gender}"
+            android:text="@string/gender"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/default_margin"
+            android:textAppearance="?android:textAppearanceListItem"
+            android:layout_marginStart="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/itemEmail"
-            app:value="@{@string/select}"
-            app:editable="@{false}"/>
-
-        <include
-            android:id="@+id/itemStatus"
-            layout="@layout/client_detail_item_widget"
-            android:layout_width="match_parent"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/select_gender"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:label="@{@string/status}"
-            app:layout_constraintTop_toBottomOf="@id/itemGender"
-            app:value="@{@string/select}"
-            app:editable="@{false}"/>
+            android:text="@string/select"
+            android:drawableEnd="@drawable/ic_next"
+            android:padding="@dimen/default_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/gender_label"
+            app:layout_constraintBottom_toBottomOf="@id/gender_label"
+            />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/status_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/default_margin"
+            android:textAppearance="?android:textAppearanceListItem"
+            android:layout_marginStart="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/select_gender"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/select_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select"
+            android:drawableEnd="@drawable/ic_next"
+            android:padding="@dimen/default_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/status_label"
+            app:layout_constraintBottom_toBottomOf="@id/status_label"
+            />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
@@ -50,7 +77,7 @@
             android:layout_marginTop="@dimen/default_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemStatus"
+            app:layout_constraintTop_toBottomOf="@id/select_status"
             />
         <ProgressBar
             android:id="@+id/progress_bar"
