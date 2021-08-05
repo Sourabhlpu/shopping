@@ -10,26 +10,26 @@ import com.example.shopping.common.domain.model.todos.TodoStatus
 import com.example.shopping.common.utils.DateTimeUtils
 
 
-@Entity(
-    tableName = "todo",
-    foreignKeys = [
-        ForeignKey(
-            entity = CachedClient::class,
-            parentColumns = ["clientId"],
-            childColumns = ["clientId"],
-            onDelete = ForeignKey.CASCADE
+        @Entity(
+            tableName = "todo",
+            foreignKeys = [
+                ForeignKey(
+                    entity = CachedClient::class,
+                    parentColumns = ["clientId"],
+                    childColumns = ["clientId"],
+                    onDelete = ForeignKey.CASCADE
+                )
+            ],
+            indices = [Index("clientId")]
         )
-    ],
-    indices = [Index("clientId")]
-)
-data class CachedTodo(
-    @PrimaryKey(autoGenerate = false)
-    val todoId: Long,
-    val clientId: Long,
-    val title: String,
-    val dueOn: String,
-    val status: String
-) {
+        data class CachedTodo(
+            @PrimaryKey(autoGenerate = false)
+            val todoId: Long,
+            val clientId: Long,
+            val title: String,
+            val dueOn: String,
+            val status: String
+        ) {
     companion object {
         fun fromDomain(clientId: Long, domainModel: Todo): CachedTodo {
             return CachedTodo(

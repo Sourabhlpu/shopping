@@ -29,7 +29,7 @@ class ShoppingAppClientsRepository @Inject constructor(
         return cache.getClients()
             .distinctUntilChanged()
             .map { clientList ->
-                clientList.map { it.client.toDomain() }
+                clientList.map { it.toDomain() }
             }
     }
 
@@ -37,11 +37,6 @@ class ShoppingAppClientsRepository @Inject constructor(
         return cache.getClient(clientId)
             .distinctUntilChanged()
             .map { it.toDomain() }
-/*        return cache.getClients()
-            .distinctUntilChanged()
-            .map { clientList ->
-                clientList.find { it.client.clientId == clientId }?.toDomain()
-            }*/
     }
 
 

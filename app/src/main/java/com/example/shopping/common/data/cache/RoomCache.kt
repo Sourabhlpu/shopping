@@ -16,7 +16,7 @@ class RoomCache @Inject constructor(
         todosDao.insertTodos(todos)
     }
 
-    override fun getClients(): Flowable<List<CachedClientAggregate>> {
+    override fun getClients(): Flowable<List<CachedClient>> {
         return clientsDao.getAllClients()
     }
 

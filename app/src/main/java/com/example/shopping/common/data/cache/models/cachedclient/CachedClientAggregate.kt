@@ -6,15 +6,15 @@ import com.example.shopping.common.data.cache.models.cachedtodo.CachedTodo
 import com.example.shopping.common.domain.model.client.Client
 import com.example.shopping.common.domain.model.client.details.ClientWithTodos
 
-data class CachedClientAggregate(
-    @Embedded
-    val client: CachedClient,
-    @Relation(
-        parentColumn = "clientId",
-        entityColumn = "clientId"
-    )
-    val todos: List<CachedTodo>
-){
+        data class CachedClientAggregate(
+            @Embedded
+            val client: CachedClient,
+            @Relation(
+                parentColumn = "clientId",
+                entityColumn = "clientId"
+            )
+            val todos: List<CachedTodo>
+        ){
     fun toDomain() : ClientWithTodos{
         val(id, name, email, gender, status) = client.toDomain()
         return ClientWithTodos(

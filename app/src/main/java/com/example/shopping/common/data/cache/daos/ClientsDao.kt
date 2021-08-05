@@ -9,7 +9,7 @@ import io.reactivex.Flowable
 abstract class ClientsDao {
     @Transaction
     @Query("SELECT * FROM clients")
-    abstract fun getAllClients() : Flowable<List<CachedClientAggregate>>
+    abstract fun getAllClients() : Flowable<List<CachedClient>>
 
     @Transaction
     @Query("SELECT * FROM clients WHERE clientId = :clientId")

@@ -7,14 +7,14 @@ import com.example.shopping.common.domain.model.client.details.Gender
 import com.example.shopping.common.domain.model.client.details.Status
 
 @Entity(tableName = "clients")
-data class CachedClient(
-    @PrimaryKey(autoGenerate = false)
-    val clientId: Long,
-    val name: String,
-    val email: String,
-    val gender: String,
-    val status: String
-) {
+    data class CachedClient(
+        @PrimaryKey(autoGenerate = false)
+        val clientId: Long,
+        val name: String,
+        val email: String,
+        val gender: String,
+        val status: String
+    ) {
     companion object {
         fun fromDomain(domainModel: Client): CachedClient {
             return CachedClient(

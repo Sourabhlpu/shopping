@@ -4,9 +4,11 @@
   <item
       android:id="@+id/clients"
       android:title="@string/clients_screen_label"
+      android:icon="@drawable/ic_user"
       app:showAsAction="ifRoom" />
   <item
       android:id="@+id/products"
       android:title="@string/products_screen_label"
+      android:icon="@drawable/ic_product"
       app:showAsAction="ifRoom" />
 </menu>

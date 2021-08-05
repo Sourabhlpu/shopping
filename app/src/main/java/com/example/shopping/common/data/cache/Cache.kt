@@ -8,7 +8,7 @@ import org.intellij.lang.annotations.Flow
 
 interface Cache {
     suspend fun storeTodos(todos: List<CachedTodo>)
-    fun getClients(): Flowable<List<CachedClientAggregate>>
+    fun getClients(): Flowable<List<CachedClient>>
     fun getClient(clientId: Long) : Flowable<CachedClientAggregate>
     suspend fun storeClients(clients: List<CachedClient>)
 }
