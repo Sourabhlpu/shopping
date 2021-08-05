@@ -19,7 +19,8 @@
             android:id="@+id/itemName"
             layout="@layout/client_detail_item_widget"
             app:label="@{@string/name}"
-            app:value="@{client.name}" />
+            app:value="@{client.name}"
+            app:editable="@{false}"/>
 
         <include
             android:id="@+id/itemEmail"
@@ -28,7 +29,8 @@
             android:layout_height="wrap_content"
             app:label="@{@string/email}"
             app:layout_constraintTop_toBottomOf="@id/itemName"
-            app:value="@{client.email}" />
+            app:value="@{client.email}"
+            app:editable="@{false}"/>
 
         <include
             android:id="@+id/itemGender"
@@ -37,7 +39,8 @@
             android:layout_height="wrap_content"
             app:label="@{@string/gender}"
             app:layout_constraintTop_toBottomOf="@id/itemEmail"
-            app:value="@{client.gender}" />
+            app:value="@{client.gender}"
+            app:editable="@{false}"/>
 
         <include
             android:id="@+id/itemStatus"
@@ -46,7 +49,8 @@
             android:layout_height="wrap_content"
             app:label="@{@string/status}"
             app:layout_constraintTop_toBottomOf="@id/itemGender"
-            app:value="@{client.status}" />
+            app:value="@{client.status}"
+            app:editable="@{false}"/>
 
         <View
             android:id="@+id/divider"
