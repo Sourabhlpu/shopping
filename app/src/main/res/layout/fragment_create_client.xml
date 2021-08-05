@@ -1,11 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <include
+            android:id="@+id/itemName"
+            layout="@layout/client_detail_item_widget"
+            app:label="@{@string/name}"
+            app:editable="@{true}"/>
 
+        <include
+            android:id="@+id/itemEmail"
+            layout="@layout/client_detail_item_widget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:label="@{@string/email}"
+            app:layout_constraintTop_toBottomOf="@id/itemName"
+            app:editable="@{true}"/>
+
+        <include
+            android:id="@+id/itemGender"
+            layout="@layout/client_detail_item_widget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:label="@{@string/gender}"
+            app:layout_constraintTop_toBottomOf="@id/itemEmail"
+            app:value="@{@string/select}"
+            app:editable="@{false}"/>
+
+        <include
+            android:id="@+id/itemStatus"
+            layout="@layout/client_detail_item_widget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:label="@{@string/status}"
+            app:layout_constraintTop_toBottomOf="@id/itemGender"
+            app:value="@{@string/select}"
+            app:editable="@{false}"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itemStatus"
+            />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
