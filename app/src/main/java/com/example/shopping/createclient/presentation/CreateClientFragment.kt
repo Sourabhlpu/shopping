@@ -12,7 +12,7 @@ class CreateClientFragment : Fragment() {
 
     companion object{
         val uiToolbar : UIToolbar
-            get() = UIToolbar(showSpinner = false, showTitle = true, showRightAction = false)
+            get() = UIToolbar(showSpinner = false, showTitle = true, showRightAction = false, isTopNav = false)
     }
 
     private val binding get() = _binding!!

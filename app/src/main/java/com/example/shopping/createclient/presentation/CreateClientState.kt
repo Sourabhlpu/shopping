@@ -7,7 +7,6 @@ data class CreateClientState(
     val email: String = "",
     val gender: String = "",
     val status: String = "",
+    val isFormValid: Boolean = false,
     val failure: Event<Throwable>? = null
-) {
-
-}
+)

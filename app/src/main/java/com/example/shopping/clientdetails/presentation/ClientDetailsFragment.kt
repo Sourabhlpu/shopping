@@ -38,7 +38,7 @@ class ClientDetailsFragment : Fragment() {
 
     companion object {
         val uiToolbar : UIToolbar
-            get() = UIToolbar(showSpinner = false, showTitle = true, showRightAction = false)
+            get() = UIToolbar(showSpinner = false, showTitle = true, showRightAction = false, isTopNav = false)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

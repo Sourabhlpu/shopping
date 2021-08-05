@@ -29,7 +29,7 @@ class ClientsFragment : Fragment() {
 
     companion object{
         val uiToolbar : UIToolbar
-        get() = UIToolbar(showSpinner = true, showTitle = false, showRightAction = true)
+        get() = UIToolbar(showSpinner = true, showTitle = false, showRightAction = true, isTopNav = true)
     }
 
     override fun onCreateView(

@@ -31,8 +31,7 @@ class MainActivity : AppCompatActivity() {
         AppBarConfiguration(
             topLevelDestinationIds = setOf(
                 R.id.clientsFragment,
-                R.id.productsFragment,
-                R.id.createClientFragment
+                R.id.productsFragment
             )
         )
     }
@@ -67,6 +66,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateToolbar(toolbarModel: UIToolbar) {
+        binding.bottomNavigation.isVisible = toolbarModel.isTopNav
         binding.toolbar.menu.findItem(R.id.create)?.isVisible = toolbarModel.showRightAction
         binding.statusSpinner.isVisible = toolbarModel.showSpinner
         supportActionBar?.setDisplayShowTitleEnabled(toolbarModel.showTitle)

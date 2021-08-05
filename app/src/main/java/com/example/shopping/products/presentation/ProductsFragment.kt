@@ -16,7 +16,7 @@ class ProductsFragment : Fragment() {
 
     companion object{
         val uiToolbar : UIToolbar
-            get() = UIToolbar(showSpinner = false, showTitle = true, showRightAction = false)
+            get() = UIToolbar(showSpinner = false, showTitle = true, showRightAction = false, isTopNav = true)
     }
 
     override fun onCreateView(
