@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create"
+    app:startDestination="@+id/createClientFragment">
+    <fragment
+        android:id="@+id/createClientFragment"
+        android:name="com.example.shopping.createclient.presentation.CreateClientFragment"
+        android:label="@string/new_client"
+        tools:layout="@layout/fragment_create_client">
+    </fragment>
+</navigation>

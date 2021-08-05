@@ -9,11 +9,13 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.shopping.R
 import com.example.shopping.clientdetails.presentation.ClientDetailsFragment
 import com.example.shopping.common.presentation.model.UIToolbar
+import com.example.shopping.createclient.presentation.CreateClientFragment
 import com.example.shopping.databinding.ActivityMainBinding
 import com.example.shopping.displayclients.presentation.ClientsFragment
 import com.example.shopping.products.presentation.ProductsFragment
@@ -29,7 +31,8 @@ class MainActivity : AppCompatActivity() {
         AppBarConfiguration(
             topLevelDestinationIds = setOf(
                 R.id.clientsFragment,
-                R.id.productsFragment
+                R.id.productsFragment,
+                R.id.createClientFragment
             )
         )
     }
@@ -56,17 +59,15 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.clientsFragment -> updateToolbar(ClientsFragment.uiToolbar)
-
                 R.id.productsFragment -> updateToolbar(ProductsFragment.uiToolbar)
-
                 R.id.clientDetailsFragment -> updateToolbar(ClientDetailsFragment.uiToolbar)
-
+                R.id.createClientFragment -> updateToolbar(CreateClientFragment.uiToolbar)
             }
         }
     }
 
     private fun updateToolbar(toolbarModel: UIToolbar) {
-        binding.toolbar.menu.findItem(R.id.add_client)?.isVisible = toolbarModel.showRightAction
+        binding.toolbar.menu.findItem(R.id.create)?.isVisible = toolbarModel.showRightAction
         binding.statusSpinner.isVisible = toolbarModel.showSpinner
         supportActionBar?.setDisplayShowTitleEnabled(toolbarModel.showTitle)
     }
@@ -78,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        return super.onOptionsItemSelected(item)
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
     private fun setupBottomNav() {
@@ -99,5 +100,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
 }
