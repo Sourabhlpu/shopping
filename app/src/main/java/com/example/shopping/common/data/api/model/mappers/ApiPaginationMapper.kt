@@ -11,4 +11,8 @@ class ApiPaginationMapper @Inject constructor() : ApiMapper<ApiPagination?, Pagi
             totalPages = apiEntity?.totalPages ?: 0
         )
     }
+
+    override fun mapFromDomain(domainEntity: Pagination): ApiPagination? {
+        return ApiPagination()
+    }
 }

@@ -10,4 +10,6 @@ data class ApiClient(
     @field:Json(name = "email") val email: String?,
     @field:Json(name = "gender") val gender: String?,
     @field:Json(name = "status") val status: String?,
-)
+) {
+    constructor() : this(-1, "", "", "", "")
+}

@@ -21,9 +21,14 @@ class ApiTodosMapper @Inject constructor() : ApiMapper<ApiTodo, Todo> {
         )
     }
 
+
     private fun parseStatus(status: String?): TodoStatus {
         if(status.isNullOrEmpty()) return TodoStatus.PENDING
 
         return TodoStatus.valueOf(status.toUpperCase(Locale.ROOT))
+    }
+
+    override fun mapFromDomain(domainEntity: Todo): ApiTodo {
+        return ApiTodo()
     }
 }

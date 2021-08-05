@@ -15,4 +15,8 @@ class UIClientWithTodosMapper @Inject constructor(private val todosMapper: UITod
             todos = input.todos.map { todosMapper.mapToView(it) }
         )
     }
+
+    override fun mapToDomain(input: UIClientWithTodos): ClientWithTodos {
+        return ClientWithTodos()
+    }
 }

@@ -13,4 +13,8 @@ class UiClientMapper @Inject constructor(): UiMapper<Client, UIClient> {
             gender = input.gender.toString()
         )
     }
+
+    override fun mapToDomain(input: UIClient): Client {
+        return Client()
+    }
 }

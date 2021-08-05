@@ -9,4 +9,12 @@ data class Client(
     val email : String,
     val gender: Gender,
     val status: Status
-)
+){
+    constructor() : this(
+        -1,
+        "",
+        "",
+        Gender.UNKNOWN,
+        Status.ALL
+    )
+}

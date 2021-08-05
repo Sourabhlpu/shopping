@@ -7,9 +7,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class ConnectionManager @Inject constructor(@ApplicationContext private val context: Context) {
-    fun isConnected() : Boolean{
+
+    fun isConnected(): Boolean {
         val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo: NetworkInfo = manager.activeNetworkInfo
-        return networkInfo?.isConnectedOrConnecting
+        val networkInfo: NetworkInfo? = manager.activeNetworkInfo
+        return networkInfo?.isConnectedOrConnecting == true
     }
 }

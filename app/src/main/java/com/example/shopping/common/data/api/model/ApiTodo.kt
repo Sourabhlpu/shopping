@@ -11,4 +11,5 @@ data class ApiTodo(
     @field:Json(name = "due_on") val dueOn: String?,
     @field:Json(name = "status") val status: String?,
 ) {
+    constructor() : this(-1, -1, "", "", "")
 }

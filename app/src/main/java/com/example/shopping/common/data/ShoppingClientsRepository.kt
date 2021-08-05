@@ -1,5 +1,7 @@
 package com.example.shopping.common.data
 
+import com.example.shopping.common.data.api.ApiConstants
+import com.example.shopping.common.data.api.ApiParameters
 import com.example.shopping.common.data.api.ClientsApi
 import com.example.shopping.common.data.api.model.mappers.ApiClientMapper
 import com.example.shopping.common.data.api.model.mappers.ApiPaginationMapper
@@ -62,6 +64,21 @@ class ShoppingAppClientsRepository @Inject constructor(
 
     override suspend fun storeTodos(todos: List<Todo>, clientId: Long) {
         cache.storeTodos(todos.map { CachedTodo.fromDomain(clientId, it) })
+    }
+
+    override suspend fun createClient(client: Client): Client? {
+        try {
+            val (meta, response) = api.saveClient(
+                ApiParameters.TOKEN_TYPE + ApiConstants.ACCESS_TOKEN,
+                apiClientMapper.mapFromDomain(client)
+            )
+            if(response == null)
+                return null
+           return apiClientMapper.mapToDomain(response)
+        } catch (exception: HttpException) {
+            throw NetworkException(exception.message ?: "Code ${exception.code()}")
+        }
+
     }
 
     override suspend fun getTodosForClient(

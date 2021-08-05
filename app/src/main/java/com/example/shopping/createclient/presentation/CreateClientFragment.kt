@@ -9,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.shopping.R
 import com.example.shopping.common.presentation.Event
 import com.example.shopping.common.presentation.model.UIToolbar
@@ -104,12 +105,16 @@ class CreateClientFragment : Fragment() {
     }
 
     private fun updateScreenState(state: CreateClientState) {
+        val client = state.client
         binding.btnSave.isEnabled = state.isFormValid
         binding.progressBar.isVisible = state.isSubmitting
-        binding.selectStatus.text = if(state.status.isEmpty()) getString(R.string.select) else state.status
-        binding.selectGender.text = if(state.gender.isEmpty()) getString(R.string.select) else state.gender
+        binding.selectStatus.text = if(client.status.isEmpty()) getString(R.string.select) else client.status
+        binding.selectGender.text = if(client.gender.isEmpty()) getString(R.string.select) else client.gender
+        handleSuccess(state.success)
         handleFailures(state.failure)
     }
+
+
 
     private fun createOptionsPickerDialog(options: Array<String>, isGender: Boolean) {
         val title =
@@ -123,6 +128,15 @@ class CreateClientFragment : Fragment() {
                 viewModel.onEvent(event)
             }
             .show()
+    }
+
+    private fun handleSuccess(success: Event<Boolean>?) {
+        val isSuccess = success?.getContentIfNotHandled() ?: return
+        if(isSuccess){
+            val message = getString(R.string.user_created_successfully)
+            Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
+            findNavController().popBackStack()
+        }
     }
 
     private fun handleFailures(failure: Event<Throwable>?) {

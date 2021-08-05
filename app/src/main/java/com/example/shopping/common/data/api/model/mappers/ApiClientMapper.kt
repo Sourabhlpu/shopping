@@ -18,6 +18,16 @@ class ApiClientMapper @Inject constructor() : ApiMapper<ApiClient, Client> {
         )
     }
 
+    override fun mapFromDomain(domainEntity: Client): ApiClient {
+        return ApiClient(
+            id = domainEntity.id,
+            name = domainEntity.name,
+            email = domainEntity.email,
+            gender = domainEntity.gender.toString(),
+            status = domainEntity.status.toString()
+        )
+    }
+
     private fun parseStatus(status: String?): Status {
         if(status.isNullOrEmpty()) return Status.ALL
 

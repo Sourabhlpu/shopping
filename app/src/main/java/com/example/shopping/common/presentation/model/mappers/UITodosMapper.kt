@@ -14,4 +14,7 @@ class UITodosMapper @Inject constructor(): UiMapper<Todo, UITodo> {
         )
     }
 
+    override fun mapToDomain(input: UITodo): Todo {
+        return Todo()
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.shopping.common.domain.repositories
 
+import android.text.BoringLayout
 import com.example.shopping.common.domain.model.client.Client
 import com.example.shopping.common.domain.model.client.details.ClientWithTodos
 import com.example.shopping.common.domain.model.pagination.PaginatedClients
@@ -13,5 +14,6 @@ interface ClientRepository {
     suspend fun storeClients(clients: List<Client>)
     suspend fun storeTodos(todos: List<Todo>, clientId: Long)
     suspend fun getTodosForClient(clientId: Long, pageToLoad: Int, pageSize: Int): PaginatedTodos
+    suspend fun createClient(client: Client) : Client?
     fun getClientWithTodo(clientId: Long): Flowable<ClientWithTodos>
 }

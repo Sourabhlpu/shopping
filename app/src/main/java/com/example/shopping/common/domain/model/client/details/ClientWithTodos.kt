@@ -10,4 +10,13 @@ data class ClientWithTodos(
     val gender: Gender,
     val status: Status,
     val todos: List<Todo>
-)
+){
+    constructor() : this(
+        -1,
+        "",
+        "",
+        Gender.UNKNOWN,
+        Status.ALL,
+        emptyList()
+    )
+}

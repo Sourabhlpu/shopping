@@ -1,10 +1,10 @@
 package com.example.shopping.common.data.api
 
+import com.example.shopping.common.data.api.model.ApiClient
 import com.example.shopping.common.data.api.model.ApiPaginatedClients
 import com.example.shopping.common.data.api.model.ApiPaginatedTodos
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.example.shopping.common.data.api.model.ApiCreateClient
+import retrofit2.http.*
 
 interface ClientsApi {
     @GET(ApiConstants.CLIENTS_ENDPOINT)
@@ -20,4 +20,11 @@ interface ClientsApi {
         @Query(ApiParameters.LIMIT) pageSize: Int
 
     ): ApiPaginatedTodos
+
+
+    @POST(ApiConstants.CLIENTS_ENDPOINT)
+    suspend fun saveClient(
+        @Header(ApiParameters.AUTH_HEADER) token : String,
+        @Body client: ApiClient
+    ) : ApiCreateClient
 }
